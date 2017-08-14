@@ -1,6 +1,6 @@
 {
   "name": "hapi-database",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Hapi plugin for the fabulous sequelize ORM",
   "main": "lib/index.js",
   "scripts": {
