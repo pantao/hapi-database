@@ -29,6 +29,14 @@ internals.configure = opts => {
   }
   return opts.sequelize.authenticate()
     .then(() => {
+      if (opts.dropAllTables) {
+        return opts.sequelize.getQueryInterface().dropAllTables({
+          force: true
+        })
+      }
+      return
+    })
+    .then(() => {
       return new DB(opts)
     })
     .then(database => {

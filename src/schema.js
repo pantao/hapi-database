@@ -6,6 +6,7 @@ const option = Joi.object().keys({
   connection: Joi.object().required(),
   sync: Joi.boolean().default(false),
   forceSync: Joi.boolean().default(false),
+  dropAllTables: Joi.boolean().default(false),
   debug: Joi.boolean(),
   onConnect: Joi.func().arity(1)
 });
