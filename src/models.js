@@ -46,8 +46,9 @@ export function applyRelations(models) {
     throw new Error('Can\'t apply relationships on invalid models object')
 
   Object.keys(models).forEach((name) => {
-    if (models[name].hasOwnProperty('associate')) {
+    if (models[name].hasOwnProperty('associate') && !models[name]._associated) {
       models[name].associate(models)
+      models[name]._associated = true
     }
   })
 

@@ -25,7 +25,7 @@ export default class DB {
     // 获取所有模型文件
     const files = Models.getFiles(paths)
     // 加载所有模型
-    const models = Models.applyRelations(Models.load(files, this.sequelize.import.bind(this.sequelize)))
+    const models = Models.load(files, this.sequelize.import.bind(this.sequelize))
 
     const promises = [new Promise((resolve, reject) => {
       resolve(models)
@@ -34,10 +34,14 @@ export default class DB {
       if (this.models.hasOwnProperty(name)) {
         throw new Error(`Model ${name} redefined.`)
       }
-      const model = this.models[name] = models[name]
+      this.models[name] = models[name]
+    }
 
+    Models.applyRelations(this.models)
+
+    for (let name in models) {
       if (this._options.sync) {
-        promises.push(model.sync({
+        promises.push(this.models[name].sync({
           force: this._options.forceSync
         }))
       }
