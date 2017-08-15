@@ -39,17 +39,15 @@ export default class DB {
 
     Models.applyRelations(this.models)
 
-    for (let name in models) {
-      if (this._options.sync) {
-        promises.push(this.models[name].sync({
-          force: this._options.forceSync
-        }))
-      }
-    }
-
     this.paths.concat(paths)
     
     this._inited = true
     return Promise.all(promises)
+  }
+
+  sync () {
+    return this.sequelize.sync({
+      force: this._options.forceSync
+    })
   }
 }

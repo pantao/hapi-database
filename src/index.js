@@ -92,6 +92,23 @@ export function register (server, options, next) {
     ])
   }, [])
 
+  server.event('database.synced')
+
+  server.ext({
+    type: 'onPreStart',
+    method (server, next) {
+      const promises = []
+      for (let key in server.plugins[pkg.name]) {
+        promises.push(server.plugins[pkg.name][key].sync())
+      }
+
+      Promise.all(promises).then(() => {
+        server.emit('database.synced')
+        next()
+      })
+    }
+  })
+
   Promise.all(configured)
     .then((dbs) => {
       if(!server.plugins[pkg.name].hasOwnProperty('default')) {

@@ -1,6 +1,6 @@
 {
   "name": "hapi-database",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "A Hapi plugin for the fabulous sequelize ORM",
   "main": "lib/index.js",
   "scripts": {
@@ -57,7 +57,7 @@
     "sinon": "^3.2.0"
   },
   "peerDependencies": {
-    "sequelize": "^3.x"
+    "sequelize": "^4.x"
   },
   "engines": {
     "node": ">=4.0.0"
